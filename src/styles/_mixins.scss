@@ -1,0 +1,219 @@
+@mixin elevation($n: 0, $color: #000) {
+  @if $n > 24 or $n < 0 {
+    $n: 1;
+  }
+
+  @if $n == 0 {
+    box-shadow: none;
+  }
+
+  @if $n == 1 {
+    box-shadow: 0 2px 1px -1px transparentize($color, .8),
+                0 1px 1px 0 transparentize($color, .86),
+                0 1px 3px 0 transparentize($color, .88);
+  }
+
+  @if $n == 2 {
+    box-shadow: 0 3px 1px -2px transparentize($color, .8),
+                0 2px 2px 0 transparentize($color, .86),
+                0 1px 5px 0 transparentize($color, .88);
+  }
+
+  @if $n == 3 {
+    box-shadow: 0 3px 3px -2px transparentize($color, .8),
+                0 3px 4px 0 transparentize($color, .86),
+                0 1px 8px 0 transparentize($color, .88);
+  }
+
+  @if $n == 4 {
+    box-shadow: 0 2px 4px -1px transparentize($color, .8),
+                0 4px 5px 0 transparentize($color, .86),
+                0 1px 10px 0 transparentize($color, .88);
+  }
+
+  @if $n == 5 {
+    box-shadow: 0 3px 5px -1px transparentize($color, .8),
+                0 5px 8px 0 transparentize($color, .86),
+                0 1px 14px 0 transparentize($color, .88);
+  }
+
+  @if $n == 6 {
+    box-shadow: 0 3px 5px -1px transparentize($color, .8),
+                0 6px 10px 0 transparentize($color, .86),
+                0 1px 18px 0 transparentize($color, .88);
+  }
+
+  @if $n == 7 {
+    box-shadow: 0 4px 5px -2px transparentize($color, .8),
+                0 7px 10px 1px transparentize($color, .86),
+                0 2px 16px 1px transparentize($color, .88);
+  }
+
+  @if $n == 8 {
+    box-shadow: 0 5px 5px -3px transparentize($color, .8),
+                0 8px 10px 1px transparentize($color, .86),
+                0 3px 14px 2px transparentize($color, .88);
+  }
+
+  @if $n == 9 {
+    box-shadow: 0 5px 6px -3px transparentize($color, .8),
+                0 9px 12px 1px transparentize($color, .86),
+                0 3px 16px 2px transparentize($color, .88);
+  }
+
+  @if $n == 10 {
+    box-shadow: 0 6px 6px -3px transparentize($color, .8),
+                0 10px 14px 1px transparentize($color, .86),
+                0 4px 18px 3px transparentize($color, .88);
+  }
+
+  @if $n == 11 {
+    box-shadow: 0 6px 7px -4px transparentize($color, .8),
+                0 11px 15px 1px transparentize($color, .86),
+                0 4px 20px 3px transparentize($color, .88);
+  }
+
+  @if $n == 12 {
+    box-shadow: 0 7px 8px -4px transparentize($color, .8),
+                0 12px 17px 2px transparentize($color, .86),
+                0 5px 22px 4px transparentize($color, .88);
+  }
+
+  @if $n == 13 {
+    box-shadow: 0 7px 8px -4px transparentize($color, .8),
+                0 13px 19px 2px transparentize($color, .86),
+                0 5px 24px 4px transparentize($color, .88);
+  }
+
+  @if $n == 14 {
+    box-shadow: 0 7px 9px -4px transparentize($color, .8),
+                0 14px 21px 2px transparentize($color, .86),
+                0 5px 26px 4px transparentize($color, .88);
+  }
+
+  @if $n == 15 {
+    box-shadow: 0 8px 9px -5px transparentize($color, .8),
+                0 15px 22px 2px transparentize($color, .86),
+                0 6px 28px 5px transparentize($color, .88);
+  }
+
+  @if $n == 16 {
+    box-shadow: 0 8px 10px -5px transparentize($color, .8),
+                0 16px 24px 2px transparentize($color, .86),
+                0 6px 30px 5px transparentize($color, .88);
+  }
+
+  @if $n == 17 {
+    box-shadow: 0 8px 11px -5px transparentize($color, .8),
+                0 17px 26px 2px transparentize($color, .86),
+                0 6px 32px 5px transparentize($color, .88);
+  }
+
+  @if $n == 18 {
+    box-shadow: 0 9px 11px -5px transparentize($color, .8),
+                0 18px 28px 2px transparentize($color, .86),
+                0 7px 34px 6px transparentize($color, .88);
+  }
+
+  @if $n == 19 {
+    box-shadow: 0 9px 12px -6px transparentize($color, .8),
+                0 19px 29px 2px transparentize($color, .86),
+                0 7px 36px 6px transparentize($color, .88);
+  }
+
+  @if $n == 20 {
+    box-shadow: 0 10px 13px -6px transparentize($color, .8),
+                0 20px 31px 3px transparentize($color, .86),
+                0 8px 38px 7px transparentize($color, .88);
+  }
+
+  @if $n == 21 {
+    box-shadow: 0 10px 13px -6px transparentize($color, .8),
+                0 21px 33px 3px transparentize($color, .86),
+                0 8px 40px 7px transparentize($color, .88);
+  }
+
+  @if $n == 22 {
+    box-shadow: 0 10px 14px -6px transparentize($color, .8),
+                0 22px 35px 3px transparentize($color, .86),
+                0 8px 42px 7px transparentize($color, .88);
+  }
+
+  @if $n == 23 {
+    box-shadow: 0 11px 14px -7px transparentize($color, .8),
+                0 23px 36px 3px transparentize($color, .86),
+                0 9px 44px 8px transparentize($color, .88);
+  }
+
+  @if $n == 24 {
+    box-shadow: 0 11px 15px -7px transparentize($color, .8),
+                0 24px 38px 3px transparentize($color, .86),
+                0 9px 46px 8px transparentize($color, .88);
+  }
+}
+
+@mixin bg-image($url, $x: 50%, $y: 50%) {
+  background-image:    url($url);
+  background-size:     cover;
+  background-position: $x $y;
+  background-repeat:   no-repeat;
+}
+
+@mixin flex($x: c, $y: c) {
+  display: flex;
+
+  @if $x == c {
+    justify-content: center
+  } @else if $x == fs {
+    justify-content: flex-start
+  } @else if $x == fe {
+    justify-content: flex-end
+  } @else if $x == sa {
+    justify-content: space-around
+  } @else if $x == sb {
+    justify-content: space-between
+  } @else if $x == se {
+    justify-content: space-evenly
+  } @else {
+    justify-content: $x;
+  }
+
+  @if $y == c {
+    align-items: center
+  } @else if $y == fs {
+    align-items: flex-start
+  } @else if $y == fe {
+    align-items: flex-end
+  } @else if $y == st {
+    align-items: stretch
+  } @else {
+    align-items: $y;
+  }
+}
+
+@mixin width($max-width, $margin-top: 0, $margin-bottom: 0) {
+  width:     100%;
+  max-width: $max-width;
+  margin:    $margin-top auto $margin-bottom auto;
+}
+
+@mixin absolute() {
+  position: absolute;
+  top:      0;
+  right:    0;
+  bottom:   0;
+  left:     0;
+}
+
+@mixin elipsis() {
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin multiline-elipsis($lines: 3) {
+  overflow:           hidden;
+  display:            -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}

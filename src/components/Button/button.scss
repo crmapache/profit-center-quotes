@@ -1,0 +1,100 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.button {
+  color:         #fff;
+  font-size:     16px;
+  border-radius: 4px;
+  padding:       10px 15px;
+  transition:    all .2s;
+  user-select:   none;
+  min-width:     130px;
+  text-align:    center;
+  overflow:      hidden;
+  position:      relative;
+
+  .ripple-container {
+    @include absolute();
+    overflow:       hidden;
+    border-radius:  inherit;
+    pointer-events: none;
+    display:        block;
+
+    .ripple {
+      position:         absolute;
+      color:            inherit;
+      background-color: currentColor;
+      border-radius:    50%;
+      transform:        scale(0);
+      transform-origin: 50% 50%;
+      opacity:          .3;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.primary {
+    @include elevation(2, $primary);
+    background-color: transparentize($primary, .8);
+    color:            $primary;
+
+    &:hover {
+      background-color: transparentize($primary, .75);
+    }
+
+    &:active {
+      background-color: transparentize($primary, .7);
+    }
+  }
+
+  &.error {
+    @include elevation(2, $error);
+    background-color: transparentize($error, .8);
+    color:            $error;
+
+    &:hover {
+      background-color: transparentize($error, .75);
+    }
+
+    &:active {
+      background-color: transparentize($error, .7);
+    }
+  }
+
+  &.success {
+    @include elevation(2, $success);
+    background-color: transparentize($success, .8);
+    color:            $success;
+
+    &:hover {
+      background-color: transparentize($success, .75);
+    }
+
+    &:active {
+      background-color: transparentize($success, .7);
+    }
+  }
+
+  &.disabled {
+    @include elevation(2, rgba(255, 255, 255, .9));
+    color:            rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, .1);
+
+    .ripple-container {
+      .ripple {
+        background-color: transparent;
+      }
+    }
+
+    &:hover {
+      cursor:           default;
+      background-color: rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+      background-color: rgba(255, 255, 255, .1);
+    }
+  }
+}
