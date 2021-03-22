@@ -60,8 +60,11 @@ function Widget(props) {
       });
     }
     
-    // Here react show annoying warning about add 'avg', 'sd', 'mo', 'me' in dependencies
-    // but now everything work exactly how i want, so i just supress it.
+    /**
+     * Here react show annoying warning about add 'avg', 'sd', 'mo', 'me' in dependencies
+     * but now everything work exactly how i want, so i just supress it.
+     */
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
   

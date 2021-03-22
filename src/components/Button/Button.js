@@ -60,7 +60,7 @@ function Button(props) {
   }
   
   function buttonClickhandler() {
-    if (typeof props.click === 'function') {
+    if (typeof props.click === 'function' && !props.disabled) {
       props.click();
     }
   }

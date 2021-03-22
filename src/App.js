@@ -71,10 +71,6 @@ export default class App extends React.Component {
   }
   
   statisticsButtonClickHandler() {
-    if (!this.state.dataReceived) {
-      return;
-    }
-    
     const calculateSd = avg => {
       return Math.round(Math.sqrt(
           this.quotes.map(quote => (quote - avg) ** 2).reduce((acc, cur) => acc + cur, 0) /
