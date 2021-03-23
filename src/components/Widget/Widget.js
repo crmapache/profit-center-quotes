@@ -4,64 +4,65 @@ import anime                           from 'animejs';
 import './widget.scss';
 
 function Widget(props) {
-  const [avg, setAvg] = useState(0);
-  const [sd, setSd]   = useState(0);
-  const [mo, setMo]   = useState(0);
-  const [me, setMe]   = useState(0);
+  const [average, setAverage]                     = useState(0);
+  const [standartDeviation, setStandartDeviation] = useState(0);
+  const [mode, setMode]                           = useState(0);
+  const [median, setMedian]                       = useState(0);
   
   useEffect(() => {
     if (props.data) {
-      const data = {avg, sd, mo, me};
+      const data = {average, standartDeviation, mode, median};
       
       anime.remove(data);
       
       anime({
         targets:  data,
-        avg:      props.data.avg,
+        average:  props.data.average,
         round:    1,
         duration: 1000,
         easing:   'easeOutExpo',
         update:   anim => {
-          setAvg(data.avg);
+          setAverage(data.average);
+        },
+      });
+      
+      anime({
+        targets:           data,
+        standartDeviation: props.data.standartDeviation,
+        round:             1,
+        duration:          1000,
+        easing:            'easeOutExpo',
+        update:            anim => {
+          setStandartDeviation(data.standartDeviation);
         },
       });
       
       anime({
         targets:  data,
-        sd:       props.data.sd,
+        mode:     props.data.mode,
         round:    1,
         duration: 1000,
         easing:   'easeOutExpo',
         update:   anim => {
-          setSd(data.sd);
+          setMode(data.mode);
         },
       });
       
       anime({
         targets:  data,
-        mo:       props.data.mo,
+        median:   props.data.median,
         round:    1,
         duration: 1000,
         easing:   'easeOutExpo',
         update:   anim => {
-          setMo(data.mo);
-        },
-      });
-      
-      anime({
-        targets:  data,
-        me:       props.data.me,
-        round:    1,
-        duration: 1000,
-        easing:   'easeOutExpo',
-        update:   anim => {
-          setMe(data.me);
+          setMedian(data.median);
         },
       });
     }
     
     /**
-     * Here react show annoying warning about add 'avg', 'sd', 'mo', 'me' in dependencies
+     * Here react show annoying warning about add
+     * 'average', 'standartDeviation', 'mode', 'median' in dependencies
      * but now everything work exactly how i want, so i just supress it.
      */
     
@@ -97,19 +98,19 @@ function Widget(props) {
             </div>
             <div className={'data-box'}>
               <div className={'data-title'}>Average</div>
-              <div className={'data-value'}>{avg}</div>
+              <div className={'data-value'}>{average}</div>
             </div>
             <div className={'data-box'}>
               <div className={'data-title'}>Standard deviation</div>
-              <div className={'data-value'}>{sd}</div>
+              <div className={'data-value'}>{standartDeviation}</div>
             </div>
             <div className={'data-box'}>
               <div className={'data-title'}>Mode</div>
-              <div className={'data-value'}>{mo}</div>
+              <div className={'data-value'}>{mode}</div>
             </div>
             <div className={'data-box'}>
               <div className={'data-title'}>Median</div>
-              <div className={'data-value'}>{me}</div>
+              <div className={'data-value'}>{median}</div>
             </div>
           </Fragment>
       );

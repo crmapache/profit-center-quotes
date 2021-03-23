@@ -11,7 +11,7 @@ export default class App extends React.Component {
       dataSlice:    null
     };
     
-    this.quotes = [];
+    this.quotes = {};
     this.socket = null;
     
     this.startButtonClickHandler      = this.startButtonClickHandler.bind(this);
@@ -19,6 +19,8 @@ export default class App extends React.Component {
   }
   
   start() {
+    this.setState({active: true});
+    
     console.log('[WS] Connecting...');
     
     this.socket = new WebSocket('wss://trade.trademux.net:8800/?password=1234');
@@ -32,8 +34,8 @@ export default class App extends React.Component {
         this.setState({dataReceived: true});
       }
       
-      const data = JSON.parse(e.data);
-      this.quotes.push(data.value);
+      const data              = JSON.parse(e.data);
+      this.quotes[data.value] = this.quotes[data.value] === undefined ? 1 : this.quotes[data.value] + 1;
     };
     
     this.socket.onclose = e => {
@@ -52,93 +54,83 @@ export default class App extends React.Component {
   
   stop() {
     this.socket.close();
+    
+    this.setState({
+      active:       false,
+      dataReceived: false,
+      dataSlice:    null,
+    });
+    
+    this.quotes = {};
   }
   
   startButtonClickHandler() {
-    if (this.state.active) {
-      this.setState({
-        active:       false,
-        dataReceived: false,
-        dataSlice:    null,
-      });
-      
-      this.quotes = [];
-      this.stop();
-    } else {
-      this.setState({active: true});
-      this.start();
-    }
+    return this.state.active ? this.stop() : this.start();
   }
   
   statisticsButtonClickHandler() {
-    const calculateSd = avg => {
-      return Math.round(Math.sqrt(
-          this.quotes.map(quote => (quote - avg) ** 2).reduce((acc, cur) => acc + cur, 0) /
-          quotesCount
-      ));
+    const getQuotesSum = () => {
+      return Object.entries(this.quotes).reduce((acc, cur) => acc + +cur[0] * +cur[1], 0);
     };
     
-    const calculateMo = () => {
-      const values = {};
+    const getQuotesCount = () => {
+      return Object.values(this.quotes).reduce((acc, cur) => acc + cur, 0);
+    };
+    
+    const getQuotesAverage = (sum, count) => {
+      return Math.round(sum / count) || 0;
+    };
+    
+    const getQuotesStandartDeviation = (average, count) => {
+      const total = Object.entries(this.quotes).reduce((acc, cur) => {
+        let sum = 0;
+        
+        for (let i = 0; i < +cur[1]; i++) {
+          sum += (+cur[0] - average) ** 2;
+        }
+        
+        return acc + sum;
+      }, 0);
       
-      for (let value of this.quotes) {
-        if (values[value]) {
-          values[value]++;
-        } else {
-          values[value] = 1;
+      return Math.round(Math.sqrt(total / count));
+    };
+    
+    const getQuotesMode = () => {
+      let maxValue = 0;
+      let maxKey   = null;
+      
+      for (let key in this.quotes) {
+        if (+this.quotes[key] > +maxValue) {
+          maxValue = +this.quotes[key];
+          maxKey   = +key;
         }
       }
       
-      let max    = 0;
-      let maxKey = null;
+      return +maxKey;
+    };
+    
+    const getQuotesMedian = count => {
+      const position = Math.round(count / 2);
+      let counter    = 0;
       
-      for (let key in values) {
-        if (values[key] > max) {
-          max    = values[key];
-          maxKey = key;
+      for (let key in this.quotes) {
+        counter += this.quotes[key];
+        
+        if (counter > position) {
+          return +key;
         }
       }
-      
-      return maxKey;
     };
     
-    const calculateMe = () => {
-      return this.quotes.slice(0).sort((a, b) => a - b)[Math.round(this.quotes.length / 2)];
-    };
-    
-    const quotesSum   = this.quotes.reduce((acc, cur) => acc + cur, 0);
-    const quotesCount = this.quotes.length;
-    
-    /**
-     * Average
-     *
-     * @type {number|number}
-     */
-    const avg = Math.round(quotesSum / quotesCount) || 0;
-    
-    /**
-     * Standard deviation
-     *
-     * @type {number|number}
-     */
-    const sd = calculateSd(avg);
-    
-    /**
-     * Mode
-     *
-     * @type {number|number}
-     */
-    const mo = calculateMo();
-    
-    /**
-     * Median
-     *
-     * @type {number|number}
-     */
-    const me = calculateMe();
+    const count             = getQuotesCount();
+    const sum               = getQuotesSum();
+    const average           = getQuotesAverage(sum, count);
+    const standartDeviation = getQuotesStandartDeviation(average, count);
+    const mode              = getQuotesMode();
+    const median            = getQuotesMedian(count);
     
     this.setState({
-      dataSlice: {avg, sd, mo, me}
+      dataSlice: {average, standartDeviation, mode, median}
     });
   }
   
